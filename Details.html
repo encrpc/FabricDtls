@@ -152,9 +152,240 @@
         .show-product-samples:hover {
             color: #ff0000;
         }
+
+
+
+
+
+
+
+
+
+  .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #323f48;
+            color: white;
+            padding: 0px 00px;
+            text-align: center;
+          
+            z-index: 1000;
+        }
+
+        .content {
+            padding-top: 0px; /* Offset for fixed header */
+        }
+
+        
+
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-banner video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-banner .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .video-banner .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 5em;
+            font-family: 'Teko', sans-serif;
+            z-index: 2;
+        }
+
+        .video-banner .text-overlay button {
+            margin-top: 0;
+            padding: 10px 20px;
+            font-size: 0.35em;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Teko', sans-serif;
+        }
+
+        .fabric-development-section {
+            background-color: #EFEFEF;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .fabric-development-text {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.9em;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .filter-container {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .filter-dropdown {
+            width: 250px;
+            height: 40px;
+            font-size: 15x;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-button {
+            width: 35px;
+            height: 35px;
+            background-color: #333;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #555;
+        }
+        .search-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
+
+
+
+ <div class="header">
+ <img src="hdr.jpg" alt="Fabric Image"  style="width: 100%; height: auto;">
+
+    </div>
+
+    <div class="content">
+        <div class="video-banner">
+            <video autoplay muted loop>
+                <source src="fab.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="dark-overlay"></div>
+            <div class="text-overlay">
+                <p>FABRIC DEVELOPMENT<br>
+              <button onclick="scrollToGrid()">View All Fabrics</button>
+            </div>
+        </div>
+
+        <div class="fabric-development-section">
+            <p class="fabric-development-text">
+                Encore Group develops all fabrics in house- down to the detail of yarn composition and 
+                surface handling to best serve 
+                innovative product development, player performance and customer satisfaction
+            </p>
+        </div>
+
+        <div class="filter-container">
+            <span class="filter-label">Fabrics For:</span>
+            <select class="filter-dropdown">
+                <option value="">All Styles</option>
+                <option value="Top">Tops</option>
+                <option value="Bottom">Bottoms</option>
+                <option value="Custom Hats">Custom Hats</option>
+                <option value="Bags">Bags</option>
+            </select>
+            <select class="filter-dropdown">
+                <option value="">All Categories</option>
+                <option value="Sportswear">Sportswear</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Training">Training</option>
+            </select>
+            <button class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m2.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -195,7 +426,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight,designed for comfort and performance.</p><br>
@@ -248,7 +479,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p><br>
@@ -316,7 +547,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Riptek.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with a reinforced weave for added durability.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight yet strong, balancing breathability with superior strength.</p><br>
@@ -398,7 +629,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Warptek.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING<span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>   </p>
                 <p class="sub-text">Offering excellent coverage with a slightly translucent effect in lighter shades.</p><br>
               <p> WEIGHT  </p>
                 <p class="sub-text">Durable, mid-weight fabric with a rich look.</p><br>
@@ -469,7 +700,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, blocking nearly all light</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Medium-weight fabric that offers excellent comfort and flexibility.</p><br>
@@ -535,7 +766,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorBamboo.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Providing good coverage with a slightly translucent feel.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight and ultra-soft with a silky feel.</p><br>
@@ -595,7 +826,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Fleece.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
@@ -664,7 +895,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING<span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>   </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
@@ -729,7 +960,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/FrenchTerry.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
@@ -804,7 +1035,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Lightweight yet durable, offering flexibility and comfort for versatile use.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
@@ -873,7 +1104,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorTemptek.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with excellent coverage and protection.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Medium to heavyweight, designed to keep you warm and dry.</p><br>
@@ -932,7 +1163,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorCotton.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p><br>
@@ -993,7 +1224,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-               <p> OPACITY RATING  </p>
+               <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
 
@@ -1068,7 +1299,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage for a solid, opaque finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight fabric designed for comfort and performance.</p><br>
@@ -1148,7 +1379,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                 <p> OPACITY RATING  </p>
+                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/1 (Nearly transparent)</span> </p>
                 <p class="sub-text">Lightweight and semi-opaque, offering airflow while maintaining coverage.
 
 </p><br>
@@ -1219,7 +1450,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/2 (Slightly translucent)</span> </p>
                 <p class="sub-text">Lightly opaque with a breathable mesh construction.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight and airy, designed for optimal ventilation.</p><br>
@@ -1282,7 +1513,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/3 (Semi-opaque)</span>  </p>
                 <p class="sub-text">Lightweight and slightly opaque, providing breathability with minimal see-through effect.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Lightweight fabric with a balance of durability and flexibility for activewear.</p><br>
@@ -1359,7 +1590,7 @@
                 <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Foamtek.html', '_blank')">Explore All Colors</button><br>
             </div>
             <div class="details">
-                <p> OPACITY RATING  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
                 <p class="sub-text">Heavyweight fabric with a cushioned, spongy feel, offering insulation and comfort.</p><br>
@@ -1378,29 +1609,19 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
     </div>
 
+
+
+
+
+<img src="ftr-01.jpg" alt="Full Width Image" style="width: 100%; height: auto;"> 
+
+
+<script>
+    function scrollToGrid() {
+        document.querySelector(".grid-container").scrollIntoView({ behavior: "smooth" });
+    }
+</script>
 </body>
 </html>
