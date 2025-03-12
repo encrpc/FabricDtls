@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabrics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            text-align: left;
+        }
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 66px; /* 2px padding between cells */
+            box-sizing: border-box;
+            width: 100%;
+
+        }
+        .fabric-cell {
+            width: calc(25% - 4px); /* 3 columns with 2px padding */
+            padding: 5px;
+            box-sizing: border-box;
+            transition: background 0.3s ease-in-out;
+            margin-bottom: 14px; /* Optional: spacing between rows */
+  background: #f5f5f5;
+        }
+        .fabric-cell:hover {
+            background: #e0e0e0; /* Light gray background on hover */
+        }
+        .fabric-image {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .fabric-image img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .fabric-image:hover img {
+            transform: scale(2.1);
+        }
+        .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .fabric-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Teko', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 20px;
+            border-radius: 8px;
+        }
+      .fabric-info {
+    text-align: left;
+    margin-top: 2px;
+    font-size: 12px;
+    padding-left: 10px; /* Added gap from the left */
+   color: #333f48;
+
+}
+        .fabric-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .fabric-info ul li {
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .colors-section {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-top: 20px;
+        }
+        .colors-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .show-colors-btn {
+            background: #2f3c48;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .show-colors-btn:hover {
+            background: #ff0000;
+        }
+        .details p {
+            font-weight: bold;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        .details .sub-text {
+            font-size: 12px;
+            font-weight: normal;
+            color: #555;
+        }
+        .embellishment-labels {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .embellishment-label {
+            background: #e0e0e0;
+            color: #555;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .embellishment-label:hover {
+            background: #ccc;
+            color: #333;
+        }
+        .show-product-samples {
+            font-size: 14px;
+            color: #2f3c48;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+            width: 100%;
+            padding-right: 20px;
+        }
+        .show-product-samples:hover {
+            color: #ff0000;
+        }
+
+
+
+
+
+
+
+
+
+  .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #323f48;
+            color: white;
+            padding: 0px 00px;
+            text-align: center;
+          
+            z-index: 1000;
+        }
+
+        .content {
+            padding-top: 0px; /* Offset for fixed header */
+        }
+
+        
+
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-banner video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-banner .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .video-banner .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 5em;
+            font-family: 'Teko', sans-serif;
+            z-index: 2;
+        }
+
+        .video-banner .text-overlay button {
+            margin-top: 0;
+            padding: 10px 20px;
+            font-size: 0.35em;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Teko', sans-serif;
+        }
+
+        .fabric-development-section {
+            background-color: #EFEFEF;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .fabric-development-text {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.9em;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .filter-container {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .filter-dropdown {
+            width: 250px;
+            height: 40px;
+            font-size: 15x;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-button {
+            width: 35px;
+            height: 35px;
+            background-color: #333;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #555;
+        }
+        .search-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+        <div class="filter-container">
+            <span class="filter-label">Fabrics For:</span>
+            <select class="filter-dropdown">
+                <option value="">All Styles</option>
+                <option value="Top">Tops</option>
+                <option value="Bottom">Bottoms</option>
+                <option value="Custom Hats">Custom Hats</option>
+                <option value="Bags">Bags</option>
+            </select>
+            <select class="filter-dropdown">
+                <option value="">All Categories</option>
+                <option value="Sportswear">Sportswear</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="Training">Training</option>
+            </select>
+            <button class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m2.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="grid-container">
+
+
+
+        <!-- Fabric 1: Deztek -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="dt.jpg" alt="Fabric Image">
+     
+                <div class="fabric-title">D E Z T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named Dez Tek because it (and you) stays cool when it's hot</li>
+		
+                    <li>Lightweight breathable fabric w/ four way stretch</li>
+                    <li>Amazing for shooter shirts, shorts and 2 ply reversibles</li>
+                    <li>Available in heavier weight version</li>
+			<li> &nbsp;</li>		<br>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight,designed for comfort and performance.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                    <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                  
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ <!-- Fabric 2: DEZTEK HEAVY -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="dth.jpg" alt="Fabric Image">
+              
+                <div class="fabric-title">D E Z T E K &nbsp; H E A V Y</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named Dez Tek because it (and you) stays cool when it's hot</li>
+                    <li>Heavy weight breathable fabric with four-way stretch</li>
+                    <li>Amazing for shooter shirts, shorts, and 2-ply reversibles</li>
+                  <li>  &nbsp;</li>  <li>  &nbsp;</li><br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek_hvy.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+    <!-- Fabric 1: RIPTEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="rip.jpg" alt="Fabric Image">
+
+                <div class="fabric-title">R I P T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named RipTek because of the Ripstop reinforced weave
+ </li>
+		
+                    <li> Crosshatch ripstop weave is resistant to ripping and tearing
+</li>
+                    <li>Superior strength to weight ratio is both durable and breathable
+ </li>
+
+                    <li>Lightweight jacket fabric is ideal for spring, summer, fall
+ </li>
+
+			<li>Best suited for embroidery and tackle twill embellishment
+ </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br><br></p>
+
+</div>
+            <img src="riptek.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Riptek.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Opaque fabric with a reinforced weave for added durability.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight yet strong, balancing breathability with superior strength.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                <span class="embellishment-label"> Tackle Twill</span>
+                    <span class="embellishment-label">Woven Label</span>
+               
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Riptek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Fabric 1: Warptek-->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="wp.jpg" alt="Fabric Image">
+           
+                <div class="fabric-title">W A R P T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li> Rich, premium appearance
+</li>
+		
+                    <li>  Durable and versatile for various applications
+</li>
+                    <li>  Best suited for screen print, heat seal & embroidery
+
+                    <li>   &nbsp;
+</li>
+
+			<li> &nbsp;</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br><br>  </p>
+
+</div>
+            <img src="warptek.png" alt="Color Swatch"><br>
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Warptek.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Offering excellent coverage with a slightly translucent effect in lighter shades.</p><br>
+              <p> WEIGHT  </p>
+                <p class="sub-text">Durable, mid-weight fabric with a rich look.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+        
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                 
+                    <span class="embellishment-label">Woven Label</span>
+           
+                </div> <br> <br>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Warptek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+   
+
+
+
+
+ 
+ 
+   
+
+     <!-- Fabric 3: HYDROTEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="hy.jpg" alt="Fabric Image">
+                <div class="fabric-title">H Y D R O T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named HydroTek for it's bathing suit like feel </li>
+		
+                    <li> Woven fabric with moisture wicking properties</li>
+                    <li> Durable fabric with a heavier weight than LatTek & DezTek</li>
+
+                    <li> Best suited for sublimation and embroidery embellishment</li>
+
+			<li>Premium fabric used for game jerseys, reversibles & short </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br> </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Opaque fabric with full coverage, blocking nearly all light</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Medium-weight fabric that offers excellent comfort and flexibility.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                   <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div> <br>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Hydrotek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Fabric 1: Bamboo Blend -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="bmb.jpg" alt="Fabric Image">
+                
+                <div class="fabric-title">B A M B O O</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li> Soft, eco-friendly, and sustainable</li>
+		
+                    <li>Quick-drying and odor-resistant </li>
+                    <li> Thermo-regulating for all-season comfort</li>
+
+                    <li>Best suited for screen print, heat Seal, embroidery & tackle twill
+ </li>
+
+			<li> &nbsp; </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="bamboo.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorBamboo.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Providing good coverage with a slightly translucent feel.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight and ultra-soft with a silky feel.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+               
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+          <span class="embellishment-label"> Tackle Twill</span>
+                    <span class="embellishment-label">Woven Label</span>
+                 
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Bamboo.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+     <!-- Fabric 1: FLEECE -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="fl.jpg" alt="Fabric Image">
+             
+                <div class="fabric-title">F L E E C E</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Traditional Heavyweight Cotton Fleece </li>
+		
+                    <li>Balanced with poly and viscose for plush feel and breathability </li>
+                    <li> Brushed yarn loops create a soft, fuzzy feel</li>
+
+                    <li>Best suited for screen print, embroidery & tackle twill </li>
+
+			<li>&nbsp; </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="fleece.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Fleece.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+                   <span class="embellishment-label"> Tackle Twill</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Fleece.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+   
+
+
+     <!-- Fabric 1: Sub Flece-->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="fl.jpg" alt="Fabric Image">
+                <div class="fabric-title">SUBLIMATED &nbsp; F L E E C E</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li> Traditional Heavyweight  Fleece
+</li>
+		
+                    <li> Balanced with poly and viscose for plush feel and breathability
+</li>
+                    <li> Brushed yarn loops create a soft, fuzzy feel
+</li>
+
+                    <li> Best suited for screen print, embroidery & tackle twill
+</li>
+
+			<li> &nbsp;</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+            
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+             <span class="embellishment-label"> Tackle Twill</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://example.com', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Fabric 1: FRENCH TERRY -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="french.jpg" alt="Fabric Image">
+  
+                <div class="fabric-title">F R E N C H  &nbsp; T E R R Y</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Traditional French Terry Fabric </li>
+		
+                    <li>Lighter weight, moisture wicking & durable fabric </li>
+                    <li>Closed loops create a less bulky alternative to fleece </li>
+
+                    <li> Ideal fabric for year round outerwear or layering
+</li>
+
+			<li> Best suited for screen print, embroidery & tackle twill
+</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="frenchterry.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/FrenchTerry.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+                 <span class="embellishment-label"> Tackle Twill</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Frenceterry.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Fabric 1: VERSATEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="versa.jpg" alt="Fabric Image">
+                <div class="fabric-title">V E R S A T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named VersaTek for it's versatile functionality </li>
+		
+                    <li>Lightweight nylon fabric w/ four way stretch. </li>
+                    <li> Soft, comfortable feel with athletic performance.</li>
+
+
+
+			<li> Great for all lifestyle items- tees, BSE, shorts, joggers.</li>
+
+<br><br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="versatek.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Lightweight yet durable, offering flexibility and comfort for versatile use.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                  <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VersaTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+     <!-- Fabric 1: TEMPTEK
+ -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="tmp.jpg" alt="Fabric Image">
+                
+                <div class="fabric-title">T E M P T E K
+</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named TempTek because it keeps you warm and dry
+ </li>
+		
+                    <li>Medium to heavy weight soft-shell fabric
+ </li>
+                    <li> Original and best selling Samurai Jacket fabric
+</li>
+
+                    <li> Best suited for embroidery and tackle twill embellishment
+</li>
+
+			<li>Water resistant, windproof & breathable
+ </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="Tempt.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorTemptek.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Opaque fabric with excellent coverage and protection.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Medium to heavyweight, designed to keep you warm and dry.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+<span class="embellishment-label"> Tackle Twill</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_TempTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+     <!-- Fabric 1: Cotton -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="ctn.jpg" alt="Fabric Image">
+         
+                <div class="fabric-title">C O T T O N</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Enhanced for superior comfort and breathability. </li>
+		
+                    <li> Soft and breathable natural fiber.</li>
+                    <li> Suitable for screen printing and embroidery embellishments. </li>
+
+                    <li>Perfect for all-day comfort and casual wear.</li>
+
+			<li>&nbsp; </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="Cotton.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorCotton.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+               
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+
+                </div>
+            </div><br>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cotton.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+     <!-- Fabric 1: C O T T O N Blend -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="ctn.jpg" alt="Fabric Image">
+           
+                <div class="fabric-title">C O T T O N &nbsp; B L E N D</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>A unique cotton blend engineered for sublimation </li>
+		
+                    <li>Offering vibrant prints with a soft, natural feel. </li>
+                    <li> Breathable and comfortable fabric with a premium blend</li>
+
+                    <li> &nbsp;</li>
+
+			<li> &nbsp;</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+               <p> OPACITY RATING  </p>
+                <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+
+                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                    <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+      
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cottonblend.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+   
+
+
+
+
+
+
+
+ 
+
+     <!-- Fabric 1: MACH-->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="mch.jpg" alt="Fabric Image">
+  
+                <div class="fabric-title">M A C H</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>  Durable fabric for long-lasting wear
+		
+                    <li> Rich look and feel, ideal for premium designs
+</li>
+                    <li>  Versatile for screen print, heat seal, embroidery, and tackle twill
+</li>
+
+                    <li>   &nbsp;
+</li>
+
+			<li> &nbsp;</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Maximum coverage for a solid, opaque finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight fabric designed for comfort and performance.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+              
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  <span class="embellishment-label"> Tackle Twill</span>
+                    <span class="embellishment-label">Woven Label</span>
+        
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Mach.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Fabric 1: AIRTEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="air.jpg" alt="Fabric Image">
+                <div class="fabric-title">A I R T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li> Named AirTek because of it's airy ventilation</li>
+		
+                    <li> Also called Porthole Mesh</li>
+                    <li> Traditional mesh jersey fabric with a retro football look</li>
+
+                    <li>Great jersey trim fabric for gusset panels </li>
+
+			<li>Best suited for sublimation </li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                 <p> OPACITY RATING  </p>
+                <p class="sub-text">Lightweight and semi-opaque, offering airflow while maintaining coverage.
+
+</p><br>
+                <p> WEIGHT  </p>
+
+                <p class="sub-text">Ultra-light fabric with a breathable, airy feel for maximum ventilation.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                   <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                 
+                  
+             
+                </div>
+            </div><br>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Airtek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+   
+
+
+
+  <!-- Fabric 1: VENTTEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="ven.jpg" alt="Fabric Image">
+                <div class="fabric-title">V E N T T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named VentTek for it's mesh feel and ventilation properties </li>
+		
+                    <li> Lightweight fabric w/ minimal stretch</li>
+                    <li>Ideal fabric for paneling </li>
+
+                    <li> Best suited for sublimation and screen print embellishment</li>
+
+			<li> Economical option for reversibles</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Lightly opaque with a breathable mesh construction.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight and airy, designed for optimal ventilation.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+               <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                  
+     
+                  
+                 
+                </div>
+            </div><br>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VentTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Fabric 1: LATTEK -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="lt.jpg" alt="Fabric Image">
+                <div class="fabric-title">L A T T E K</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li>Named LatTek because it stretches laterally </li>
+		
+                    <li>Lightweight breathable fabric w/ 2 way stretch </li>
+                    <li>Durable Fabric used for reversibles and shorts </li>
+
+                    <li> Best suited for sublimation and screen print embellishment</li>
+
+			<li> More economical option than Dez Tek or HydroTek</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
+                Sublimation-Ready Fabric
+            </span><br><br>  </p>
+
+</div>
+            <img src="aa.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Lightweight and slightly opaque, providing breathability with minimal see-through effect.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight fabric with a balance of durability and flexibility for activewear.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+             <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Lattek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Fabric 1: FOAMTEK
+ -->
+        <div class="fabric-cell">
+            <div class="fabric-image">
+                <img src="fm.jpg" alt="Fabric Image">
+                
+                <div class="fabric-title">F O A M T E K
+</div>
+            </div>
+            <div class="fabric-info">
+                <ul>
+                    <li> Named FoamTek because of it's spongelike feel
+</li>
+		
+                    <li> Heavyweight jacket and hoodie "spacer" fabric
+</li>
+                    <li>3 Dimensional style fabric is thick and cushy
+ </li>
+
+                    <li> Offers a unique look and smooth comfortable feel
+</li>
+
+			<li> Best suited for embroidery and tackle twill embellishment
+</li>
+
+<br>
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS<br><br>  </p>
+
+</div>
+            <img src="foam.png" alt="Color Swatch">
+            <div class="colors-section">
+                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Foamtek.html', '_blank')">Explore All Colors</button><br>
+            </div>
+            <div class="details">
+                <p> OPACITY RATING  </p>
+                <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Heavyweight fabric with a cushioned, spongy feel, offering insulation and comfort.</p><br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+            
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                    <span class="embellishment-label">Applique</span>
+                    <span class="embellishment-label">Woven Label</span>
+           <span class="embellishment-label"> Tackle Twill</span>
+                </div>
+            </div>
+            <div class="show-product-samples" onclick="window.open(' ', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+<img src="ftr-01.jpg" alt="Full Width Image" style="width: 100%; height: auto;"> 
+
+
+<script>
+    function scrollToGrid() {
+        document.querySelector(".grid-container").scrollIntoView({ behavior: "smooth" });
+    }
+</script>
+</body>
+</html>
