@@ -20,32 +20,56 @@
             box-sizing: border-box;
             width: 100%;
 
+
         }
-        .fabric-cell {
-            width: calc(25% - 4px); /* 3 columns with 2px padding */
-            padding: 5px;
-            box-sizing: border-box;
-            transition: background 0.3s ease-in-out;
-            margin-bottom: 14px; /* Optional: spacing between rows */
-  background: #f5f5f5;
-        }
+     .fabric-cell {
+    width: calc(25% - 4px);  
+    padding: 15px;
+    box-sizing: border-box;
+    transition: background 0.3s ease-in-out;
+    margin-bottom: 14px;  
+    background: ;
+    border: 2px solid #e8e8e7;  
+    border-radius: 15px;  
+    overflow: hidden;  
+box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); 
+
+}
         .fabric-cell:hover {
-            background: #e0e0e0; /* Light gray background on hover */
+            background: #e1e2e2;  
         }
-        .fabric-image {
-            position: relative;
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .fabric-image img {
-            width: 100%;
-            display: block;
-            transition: transform 0.3s ease-in-out;
-        }
-        .fabric-image:hover img {
-            transform: scale(2.1);
-        }
+       .fabric-image {
+        position: relative;
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .fabric-image img {
+        width: 100%;
+        display: block;
+        transition: opacity 0.3s ease-in-out; /* Fade effect */
+    }
+
+    /* Hide the hover image by default */
+    .fabric-image .image-hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    /* Change image on hover */
+    .fabric-image:hover .image-main {
+        opacity: 0; /* Fade out the main image */
+
+    }
+
+    .fabric-image:hover .image-hover {
+        opacity: 1; /* Fade in the hover image */
+
+    }
         .label {
             position: absolute;
             top: 10px;
@@ -57,19 +81,27 @@
             font-weight: bold;
             border-radius: 4px;
         }
-        .fabric-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Teko', sans-serif;
-            font-size: 22px;
-            font-weight: 500;
-            color: white;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2px 20px;
-            border-radius: 8px;
-        }
+  
+            .fabric-title {
+       position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Teko', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 20px;
+    border-radius: 8px;
+    z-index: 2; /* Ensure title stays on top */
+    transition: opacity 0.3s ease-in-out; /* Smooth visibility transition */
+    }
+
+
+.fabric-image:hover .fabric-title {
+    opacity: 1;
+}
       .fabric-info {
     text-align: left;
     margin-top: 2px;
@@ -84,7 +116,7 @@
         }
         .fabric-info ul li {
             margin-bottom: 5px;
-            font-size: 13px;
+            font-size: 12px;
         }
         .colors-section {
             display: flex;
@@ -105,6 +137,7 @@
             padding: 10px;
             cursor: pointer;
             border-radius: 5px;
+   width: 100%;
         }
         .show-colors-btn:hover {
             background: #ff0000;
@@ -143,11 +176,13 @@
             font-size: 14px;
             color: #2f3c48;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: ;
             margin-top: 20px;
-            text-align: right;
+            text-align: left;
             width: 100%;
             padding-right: 20px;
+
+
         }
         .show-product-samples:hover {
             color: #ff0000;
@@ -297,10 +332,46 @@
 
 
 
+     .dialog-box {
+            display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above everything */
+        }
+        .dialog-box iframe {
+            width: 80%;
+    height: 80%;
+    border: none;
+    background: white;
+    z-index: 1001; /* Ensure iframe is interactive */
+        }
+        .dialog-box button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #333f48;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dialog-box button:hover {
+            background: #ff0000;
+        }
 
 
-
-
+.inactive {
+    pointer-events: none; /* Disables interaction with background */
+    filter: blur(3px); /* Optional: Adds a blur effect */
+}
 
 
 
@@ -335,130 +406,102 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="grid-container">
 
 
 
-        <!-- Fabric 1: Deztek -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="dt.jpg" alt="Fabric Image">
+   
+    <!-- |----start------| -->
+
+
+
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: Deztek -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
      
-                <div class="fabric-title">D E Z T E K</div>
-            </div>
-            <div class="fabric-info">
+ <div class="fabric-title">D E Z T E K</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>Named Dez Tek because it (and you) stays cool when it's hot</li>
+                    <li>⚪ Named Dez Tek because it (and you) stays cool when it's hot</li>
 		
-                    <li>Lightweight breathable fabric w/ four way stretch</li>
-                    <li>Amazing for shooter shirts, shorts and 2 ply reversibles</li>
-                    <li>Available in heavier weight version</li>
-			<li> &nbsp;</li>		<br>
+                    <li>⚪ Lightweight breathable fabric w/ four way stretch</li>
+                    <li>⚪ Amazing for shooter shirts, shorts and 2 ply reversibles</li>
+                    <li>⚪ Available in heavier weight version</li>
+			<li> &nbsp;</li><br>
 		
                 </ul>
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
-                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.<br></p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight,designed for comfort and performance.</p><br>
-                <p> EMBELLISHMENT TYPES </p>
-                <div class="embellishment-labels">
-                    <span class="embellishment-label">Sublimation</span>
-                    <span class="embellishment-label">Screen Print</span>
-                    <span class="embellishment-label">Embroidery</span>
-                    <span class="embellishment-label">Heat Seal</span>
-                  
-                    <span class="embellishment-label">Woven Label</span>
-                  
-                </div>
-            </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
-        </div>
+                <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p>
+
+ <p class="sub-text">
+120
+ 
+GSM - 
+90%POLY 10%SP SJ 
+</p>
 
 
 
 
 
-
-
-
-
- <!-- Fabric 2: DEZTEK HEAVY -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="dth.jpg" alt="Fabric Image">
-              
-                <div class="fabric-title">D E Z T E K &nbsp; H E A V Y</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>Named Dez Tek because it (and you) stays cool when it's hot</li>
-                    <li>Heavy weight breathable fabric with four-way stretch</li>
-                    <li>Amazing for shooter shirts, shorts, and 2-ply reversibles</li>
-                  <li>  &nbsp;</li>  <li>  &nbsp;</li><br>
-                </ul>
-            </div>
-
- <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
-
-</div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
-            </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
-                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
-                <p> WEIGHT  </p>
-                <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p><br>
+<br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                  <span class="embellishment-label">Sublimation</span>
@@ -469,64 +512,355 @@
                     <span class="embellishment-label">Woven Label</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek_hvy.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek_hvy.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
 
 
 
 
+   
 
 
-
-
-
-
-
-
+   
 
  
-    <!-- Fabric 1: RIPTEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="rip.jpg" alt="Fabric Image">
 
-                <div class="fabric-title">R I P T E K</div>
-            </div>
-            <div class="fabric-info">
+
+
+ <!-- |---------------------------------------------------------| -->
+
+
+
+
+    <!-- Fabric 1: DEZTECK MEDIUM -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">D E Z T E K &nbsp; M E D I U M</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>Named RipTek because of the Ripstop reinforced weave
- </li>
+                    <li>⚪ A mid-weight version of the original DezTek fabric</li>
 		
-                    <li> Crosshatch ripstop weave is resistant to ripping and tearing
-</li>
-                    <li>Superior strength to weight ratio is both durable and breathable
- </li>
-
-                    <li>Lightweight jacket fabric is ideal for spring, summer, fall
- </li>
-
-			<li>Best suited for embroidery and tackle twill embellishment
- </li>
-
-<br>
+                    <li>⚪ Lightweight, breathable, and moisture-wicking</li>
+                    <li>⚪ Four-way stretch for enhanced mobility and comfort</li>
+                    <li>⚪ Durable and ideal for athletic and lifestyle wear</li>
+			<li> &nbsp;</li><br><br>
+		
                 </ul>
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br><br></p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="riptek.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Riptek.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
-                <p class="sub-text">Opaque fabric with a reinforced weave for added durability.</p><br>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.<br></p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight yet strong, balancing breathability with superior strength.</p><br>
+                <p class="sub-text">Medium-weight fabric that balances comfort, flexibility, and durability for sports and casual wear.</p>
+
+ <p class="sub-text">
+150
+ 
+GSM - 
+88%POLY 12%SP </p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: D E Z T E K &nbsp; H E A V Y -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dth.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">D E Z T E K &nbsp; H E A V Y</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li>⚪ Named Dez Tek because it (and you) stays cool when it's hot</li>
+                    <li>⚪ Heavy weight breathable fabric with four-way stretch</li>
+                    <li>⚪ Amazing for shooter shirts, shorts, and 2-ply reversibles</li>
+                  <li>  &nbsp;</li>  <li>  &nbsp;</li><br>
+                </ul>
+
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+             <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.</p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable, Heavy weight fabric, perfect for athletic wear and lifestyle items.</p>
+ <p class="sub-text">
+190
+ 
+GSM - 
+85%POLY 15%SP SJ
+</p>
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek_hvy.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek_hvy.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: R I P T E K -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="rip.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">R I P T E K</div>
+</div>
+<div class="fabric-info">
+               <ul>
+                    <li>⚪ Named RipTek because of the Ripstop reinforced weave
+ </li>
+		
+                    <li> ⚪ Crosshatch ripstop weave is resistant to ripping and tearing
+</li>
+                    <li>⚪ Superior strength to weight ratio is both durable and breathable
+ </li>
+
+                    <li>⚪ Lightweight jacket fabric is ideal for spring, summer, fall
+ </li>
+
+			<li>⚪ Best suited for embroidery and tackle twill embellishment
+ </li>
+
+<br>
+                </ul>
+
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="riptek.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Color2/Riptek.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span> <br> </p>
+                <p class="sub-text">Opaque fabric with a reinforced weave for added durability.<br><br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight yet strong, balancing breathability with superior strength.</p>
+ <p class="sub-text">
+125
+ 
+GSM - 
+100%POLY CJt</p>
+<br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                 
@@ -538,9 +872,32 @@
                
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Riptek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Riptek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub4/H_Riptek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -553,39 +910,29 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
 
 
 
+    <!-- Fabric 1: W A R P T E K -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- Fabric 1: Warptek-->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="wp.jpg" alt="Fabric Image">
-           
-                <div class="fabric-title">W A R P T E K</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li> Rich, premium appearance
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="wp.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">W A R P T E K</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li> ⚪ Rich, premium appearance
 </li>
 		
-                    <li>  Durable and versatile for various applications
+                    <li>  ⚪ Durable and versatile for various applications
 </li>
-                    <li>  Best suited for screen print, heat seal & embroidery
+                    <li>  ⚪ Best suited for screen print, heat seal & embroidery
 
                     <li>   &nbsp;
 </li>
@@ -594,21 +941,62 @@
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="warptek.png" alt="Color Swatch"><br>
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Warptek.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="warptek.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Color2/Warptek.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
             <div class="details">
-                <p> OPACITY RATING<span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>   </p>
-                <p class="sub-text">Offering excellent coverage with a slightly translucent effect in lighter shades.</p><br>
+                <p> OPACITY RATING<span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span></p>
+                <p class="sub-text">Offering excellent coverage with a slightly translucent effect in lighter shades.<br></p><br>
               <p> WEIGHT  </p>
-                <p class="sub-text">Durable, mid-weight fabric with a rich look.</p><br>
+                <p class="sub-text">Durable, mid-weight fabric with a rich look.</p> <p class="sub-text">
+170
+ 
+GSM - 
+RECYCLE NYLON 79%, 21%SP 
+</p><br>
+
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
         
@@ -620,19 +1008,28 @@
            
                 </div> <br> <br>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Warptek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Warptek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub3/H_Warptek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
 
 
 
 
-
-
-
-
- 
+   
 
 
    
@@ -640,46 +1037,93 @@
 
 
 
- 
- 
-   
 
-     <!-- Fabric 3: HYDROTEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="hy.jpg" alt="Fabric Image">
-                <div class="fabric-title">H Y D R O T E K</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>Named HydroTek for it's bathing suit like feel </li>
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: H Y D R O T E K -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="hy.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">H Y D R O T E K</div>
+</div>
+<div class="fabric-info">
+              <ul>
+                    <li>⚪ Named HydroTek for it's bathing suit like feel </li>
 		
-                    <li> Woven fabric with moisture wicking properties</li>
-                    <li> Durable fabric with a heavier weight than LatTek & DezTek</li>
+                    <li> ⚪ Woven fabric with moisture wicking properties</li>
+                    <li> ⚪ Durable fabric with a heavier weight than LatTek & DezTek</li>
 
-                    <li> Best suited for sublimation and embroidery embellishment</li>
+                    <li> ⚪ Best suited for sublimation and embroidery embellishment</li>
 
-			<li>Premium fabric used for game jerseys, reversibles & short </li>
+			<li>⚪ Premium fabric used for game jerseys, reversibles & short </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br> </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
+             <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, blocking nearly all light</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Medium-weight fabric that offers excellent comfort and flexibility.</p><br>
+                <p class="sub-text">Medium-weight fabric that offers excellent comfort and flexibility.</p>
+ <p class="sub-text">
+120
+ 
+GSM - 
+92%POLY 8%SPAN
+</p><br>
+
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                    <span class="embellishment-label">Sublimation</span>
@@ -689,10 +1133,33 @@
                   
                     <span class="embellishment-label">Woven Label</span>
                 </div>
-            </div> <br>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Hydrotek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Hydrotek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Hydrotek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -705,47 +1172,84 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
 
 
 
-     <!-- Fabric 1: Bamboo Blend -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="bmb.jpg" alt="Fabric Image">
-                
-                <div class="fabric-title">B A M B O O</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li> Soft, eco-friendly, and sustainable</li>
+    <!-- Fabric 1: B A M B O O -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="bmb.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">B A M B O O</div>
+</div>
+<div class="fabric-info">
+              <ul>
+                    <li> ⚪ Soft, eco-friendly, and sustainable</li>
 		
-                    <li>Quick-drying and odor-resistant </li>
-                    <li> Thermo-regulating for all-season comfort</li>
+                    <li>⚪ Quick-drying and odor-resistant </li>
+                    <li> ⚪ Thermo-regulating for all-season comfort</li>
 
-                    <li>Best suited for screen print, heat Seal, embroidery & tackle twill
+                    <li>⚪ Best suited for screen print, heat Seal, embroidery & tackle twill
  </li>
 
 			<li> &nbsp; </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="bamboo.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorBamboo.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="bamboo.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Colors1/ColorBamboo.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
+             <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Providing good coverage with a slightly translucent feel.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight and ultra-soft with a silky feel.</p><br>
+                <p class="sub-text">Lightweight and ultra-soft with a silky feel.</p> <p class="sub-text">
+170
+ 
+GSM - 
+93% BAMBOO 7% SPANDEX
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                
@@ -757,9 +1261,32 @@
                  
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Bamboo.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Bamboo.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Bamboo.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -767,45 +1294,88 @@
 
 
 
- 
 
- 
 
-     <!-- Fabric 1: FLEECE -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="fl.jpg" alt="Fabric Image">
-             
-                <div class="fabric-title">F L E E C E</div>
-            </div>
-            <div class="fabric-info">
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: F L E E C E -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="fl.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">F L E E C E</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>Traditional Heavyweight Cotton Fleece </li>
+                    <li>⚪ Traditional Heavyweight Cotton Fleece </li>
 		
-                    <li>Balanced with poly and viscose for plush feel and breathability </li>
-                    <li> Brushed yarn loops create a soft, fuzzy feel</li>
+                    <li>⚪ Balanced with poly and viscose for plush feel and breathability </li>
+                    <li> ⚪ Brushed yarn loops create a soft, fuzzy feel</li>
 
-                    <li>Best suited for screen print, embroidery & tackle twill </li>
+                    <li>⚪ Best suited for screen print, embroidery & tackle twill </li>
 
 			<li>&nbsp; </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="fleece.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Fleece.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="fleece.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Color2/Fleece.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+             <div class="details">
                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p> <p class="sub-text">
+270
+ 
+GSM - 
+63%POLY 34%CTTN 3%SP 
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                 
@@ -817,64 +1387,121 @@
                    <span class="embellishment-label"> Tackle Twill</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Fleece.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Fleece.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Fleece.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
 
 
 
-
-
-
-
- 
-
- 
 
    
 
 
-     <!-- Fabric 1: Sub Flece-->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="fl.jpg" alt="Fabric Image">
-                <div class="fabric-title">SUBLIMATED &nbsp; F L E E C E</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li> Traditional Heavyweight  Fleece
-</li>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: SUBLIMATED &nbsp; F L E E C E -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="fl.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">SUBLIMATED &nbsp; FLEECE</div>
+</div>
+<div class="fabric-info">
+               <ul>
+                    <li>⚪ Traditional Heavyweight Cotton Fleece </li>
 		
-                    <li> Balanced with poly and viscose for plush feel and breathability
-</li>
-                    <li> Brushed yarn loops create a soft, fuzzy feel
-</li>
+                    <li>⚪ Balanced with poly and viscose for plush feel and breathability </li>
+                    <li> ⚪ Brushed yarn loops create a soft, fuzzy feel</li>
 
-                    <li> Best suited for screen print, embroidery & tackle twill
-</li>
+                    <li>⚪ Best suited for screen print, embroidery & tackle twill </li>
 
-			<li> &nbsp;</li>
+			<li>&nbsp; </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+             <div class="details">
                 <p> OPACITY RATING<span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>   </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p> <p class="sub-text">
+320
+ 
+GSM - 
+68%POLY 29%CTTN 3%SP 
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
             
@@ -886,9 +1513,32 @@
              <span class="embellishment-label"> Tackle Twill</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://example.com', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -901,45 +1551,86 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
-     <!-- Fabric 1: FRENCH TERRY -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="french.jpg" alt="Fabric Image">
-  
-                <div class="fabric-title">F R E N C H  &nbsp; T E R R Y</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>Traditional French Terry Fabric </li>
+
+
+
+    <!-- Fabric 1: F R E N C H  &nbsp; T E R R Y -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="french.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">F R E N C H  &nbsp; T E R R Y</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li>⚪ Traditional French Terry Fabric </li>
 		
-                    <li>Lighter weight, moisture wicking & durable fabric </li>
-                    <li>Closed loops create a less bulky alternative to fleece </li>
+                    <li>⚪ Lighter weight, moisture wicking & durable fabric </li>
+                    <li>⚪ Closed loops create a less bulky alternative to fleece </li>
 
-                    <li> Ideal fabric for year round outerwear or layering
+                    <li> ⚪ Ideal fabric for year round outerwear or layering
 </li>
 
-			<li> Best suited for screen print, embroidery & tackle twill
+			<li> ⚪ Best suited for screen print, embroidery & tackle twill
 </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="frenchterry.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/FrenchTerry.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="frenchterry.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="window.open('https://encrpc.github.io/Color2/FrenchTerry.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
             <div class="details">
                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p> <p class="sub-text">
+250
+ 
+GSM - 
+62%POLY 33%CTN 5%SP
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                 
@@ -951,9 +1642,32 @@
                  <span class="embellishment-label"> Tackle Twill</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Frenceterry.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Frenceterry.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Frenceterry.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -966,55 +1680,90 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
 
 
 
+    <!-- Fabric 1: V E R S A T E K -->
 
-
-
-
-
-
-
-
-  <!-- Fabric 1: VERSATEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="versa.jpg" alt="Fabric Image">
-                <div class="fabric-title">V E R S A T E K</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>Named VersaTek for it's versatile functionality </li>
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="versa.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">V E R S A T E K</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li>⚪ Named VersaTek for it's versatile functionality </li>
 		
-                    <li>Lightweight nylon fabric w/ four way stretch. </li>
-                    <li> Soft, comfortable feel with athletic performance.</li>
+                    <li>⚪ Lightweight nylon fabric w/ four way stretch. </li>
+                    <li> ⚪ Soft, comfortable feel with athletic performance.</li>
 
 
 
-			<li> Great for all lifestyle items- tees, BSE, shorts, joggers.</li>
-
-<br><br>
+			<li> ⚪ Great for all lifestyle items- tees, BSE, shorts, joggers.</li>
+<li>&nbsp;
+ </li>
+<li> </li>
+<br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="versatek.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="versatek.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+
+           
+<br>           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
+             <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Lightweight yet durable, offering flexibility and comfort for versatile use.</p><br>
-                <p> WEIGHT  </p>
-                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p><br>
+               <br> <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable heavyweight fabric, designed to keep you warm and cozy.</p> <p class="sub-text">
+170
+ 
+GSM - 
+92%POLY 8%SPAN</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                   <span class="embellishment-label">Sublimation</span>
@@ -1025,9 +1774,32 @@
                     <span class="embellishment-label">Woven Label</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VersaTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VersaTek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub4/H_VersaTek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -1038,52 +1810,91 @@
 
 
 
- 
 
- 
 
-     <!-- Fabric 1: TEMPTEK
- -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="tmp.jpg" alt="Fabric Image">
-                
-                <div class="fabric-title">T E M P T E K
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: T E M P T E K -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="tmp.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">T E M P T E K</div>
 </div>
-            </div>
-            <div class="fabric-info">
+<div class="fabric-info">
                 <ul>
-                    <li>Named TempTek because it keeps you warm and dry
+                    <li>⚪ Named TempTek because it keeps you warm and dry
  </li>
 		
-                    <li>Medium to heavy weight soft-shell fabric
+                    <li>⚪ Medium to heavy weight soft-shell fabric
  </li>
-                    <li> Original and best selling Samurai Jacket fabric
+                    <li> ⚪ Original and best selling Samurai Jacket fabric
 </li>
 
-                    <li> Best suited for embroidery and tackle twill embellishment
+                    <li> ⚪ Best suited for embroidery and tackle twill embellishment
 </li>
 
-			<li>Water resistant, windproof & breathable
+			<li>⚪ Water resistant, windproof & breathable
  </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="Tempt.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorTemptek.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="Tempt.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Colors1/ColorTemptek.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+             <div class="details">
                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with excellent coverage and protection.</p><br>
-                <p> WEIGHT  </p>
-                <p class="sub-text">Medium to heavyweight, designed to keep you warm and dry.</p><br>
+             <br>   <p> WEIGHT  </p>
+                <p class="sub-text">Medium to heavyweight, designed to keep you warm and dry.</p> <p class="sub-text">
+-
+ 
+GSM - 
+--
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                  
@@ -1095,9 +1906,31 @@
 <span class="embellishment-label"> Tackle Twill</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_TempTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_TempTek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub3/H_TempTek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -1106,23 +1939,33 @@
 
 
 
- 
 
-     <!-- Fabric 1: Cotton -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="ctn.jpg" alt="Fabric Image">
-         
-                <div class="fabric-title">C O T T O N</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>Enhanced for superior comfort and breathability. </li>
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: C O T T O N -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="ctn.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">C O T T O N</div>
+</div>
+<div class="fabric-info">
+                        <ul>
+                    <li>⚪ Enhanced for superior comfort and breathability. </li>
 		
-                    <li> Soft and breathable natural fiber.</li>
-                    <li> Suitable for screen printing and embroidery embellishments. </li>
+                    <li> ⚪ Soft and breathable natural fiber.</li>
+                    <li> ⚪ Suitable for screen printing and embroidery embellishments. </li>
 
-                    <li>Perfect for all-day comfort and casual wear.</li>
+                    <li>⚪ Perfect for all-day comfort and casual wear.</li>
 
 			<li>&nbsp; </li>
 
@@ -1131,18 +1974,51 @@
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="Cotton.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/ColorCotton.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="Cotton.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Colors1/ColorCotton.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+              <div class="details">
                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p><br>
+                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p> <p class="sub-text">
+170
+ 
+GSM - 
+100% Cotton
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                
@@ -1153,10 +2029,33 @@
                     <span class="embellishment-label">Woven Label</span>
 
                 </div>
-            </div><br>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cotton.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+            </div
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cotton.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cotton.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -1165,21 +2064,31 @@
 
 
 
- 
 
-     <!-- Fabric 1: C O T T O N Blend -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="ctn.jpg" alt="Fabric Image">
-           
-                <div class="fabric-title">C O T T O N &nbsp; B L E N D</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li>A unique cotton blend engineered for sublimation </li>
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: C O T T O N &nbsp; B L E N D -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="ctn.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">C O T T O N &nbsp; B L E N D</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li>⚪ A unique cotton blend engineered for sublimation </li>
 		
-                    <li>Offering vibrant prints with a soft, natural feel. </li>
-                    <li> Breathable and comfortable fabric with a premium blend</li>
+                    <li>⚪ Offering vibrant prints with a soft, natural feel. </li>
+                    <li> ⚪ Breathable and comfortable fabric with a premium blend</li>
 
                     <li> &nbsp;</li>
 
@@ -1187,24 +2096,56 @@
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+             <div class="details">
                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Opaque fabric with full coverage, ensuring a solid and non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
 
-                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p><br>
+                <p class="sub-text">Mid-weight, offering a soft, breathable, and durable feel.</p> <p class="sub-text">
+180
+ 
+GSM - 
+ 80%CTN 20%POLY
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                     <span class="embellishment-label">Sublimation</span>
@@ -1216,18 +2157,30 @@
       
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cottonblend.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cottonblend.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/Fabrics_Sub/H_Cottonblend.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
 
 
 
 
+   
 
-
-
- 
 
    
 
@@ -1237,22 +2190,33 @@
 
 
 
- 
 
-     <!-- Fabric 1: MACH-->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="mch.jpg" alt="Fabric Image">
-  
-                <div class="fabric-title">M A C H</div>
-            </div>
-            <div class="fabric-info">
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: M A C H -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="mch.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">M A C H</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>  Durable fabric for long-lasting wear
+                    <li>  ⚪ Durable fabric for long-lasting wear
 		
-                    <li> Rich look and feel, ideal for premium designs
+                    <li> ⚪ Rich look and feel, ideal for premium designs
 </li>
-                    <li>  Versatile for screen print, heat seal, embroidery, and tackle twill
+                    <li>  ⚪ Versatile for screen print, heat seal, embroidery, and tackle twill
 </li>
 
                     <li>   &nbsp;
@@ -1262,23 +2226,56 @@
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
             <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/4 (Slightly less opaque)</span>  </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage for a solid, opaque finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight fabric designed for comfort and performance.</p><br>
+                <p class="sub-text">Lightweight fabric designed for comfort and performance.</p> <p class="sub-text">
+180
+ 
+GSM - 
+90%POLY 10%SP SJ 
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
               
@@ -1290,9 +2287,31 @@
         
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Mach.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub3/H_Mach.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub3/H_Mach.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
 
 
 
@@ -1305,63 +2324,86 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
 
 
 
+    <!-- Fabric 1: A I R T E K -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-     <!-- Fabric 1: AIRTEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="air.jpg" alt="Fabric Image">
-                <div class="fabric-title">A I R T E K</div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li> Named AirTek because of it's airy ventilation</li>
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="air.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">A I R T E K</div>
+</div>
+<div class="fabric-info">
+                 <ul>
+                    <li> ⚪ Named AirTek because of it's airy ventilation</li>
 		
-                    <li> Also called Porthole Mesh</li>
-                    <li> Traditional mesh jersey fabric with a retro football look</li>
+                    <li> ⚪ Also called Porthole Mesh</li>
+                    <li> ⚪ Traditional mesh jersey fabric with a retro football look</li>
 
-                    <li>Great jersey trim fabric for gusset panels </li>
+                    <li>⚪ Great jersey trim fabric for gusset panels </li>
 
-			<li>Best suited for sublimation </li>
+			<li>⚪ Best suited for sublimation </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
             <div class="details">
-                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/1 (Nearly transparent)</span> </p>
+                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;1/5 (Nearly transparent)</span> </p>
                 <p class="sub-text">Lightweight and semi-opaque, offering airflow while maintaining coverage.
 
 </p><br>
                 <p> WEIGHT  </p>
 
-                <p class="sub-text">Ultra-light fabric with a breathable, airy feel for maximum ventilation.</p><br>
+                <p class="sub-text">Ultra-light fabric with a breathable, airy feel for maximum ventilation.</p> <p class="sub-text">
+90
+ 
+GSM - 
+100%POLY
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                    <span class="embellishment-label">Sublimation</span>
@@ -1369,67 +2411,123 @@
                  
                   
              
-                </div>
-            </div><br>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Airtek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+                </div><br>  
+            </div>
+   
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Airtek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub4/H_Airtek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span></div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
 
 
 
 
-
-
-
-
-
-
-
- 
- 
+   
 
 
    
 
 
 
-  <!-- Fabric 1: VENTTEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="ven.jpg" alt="Fabric Image">
-                <div class="fabric-title">V E N T T E K</div>
-            </div>
-            <div class="fabric-info">
+
+
+
+
+
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
+
+
+
+
+
+    <!-- Fabric 1: V E N T T E K -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="ven.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">V E N T T E K</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>Named VentTek for it's mesh feel and ventilation properties </li>
+                    <li>⚪ Named VentTek for it's mesh feel and ventilation properties </li>
 		
-                    <li> Lightweight fabric w/ minimal stretch</li>
-                    <li>Ideal fabric for paneling </li>
+                    <li> ⚪ Lightweight fabric w/ minimal stretch</li>
+                    <li>⚪ Ideal fabric for paneling </li>
 
-                    <li> Best suited for sublimation and screen print embellishment</li>
+                    <li> ⚪ Best suited for sublimation and screen print embellishment</li>
 
-			<li> Economical option for reversibles</li>
+			<li> ⚪ Economical option for reversibles</li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
             <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/2 (Slightly translucent)</span> </p>
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;2/5 (Slightly translucent)</span> </p>
                 <p class="sub-text">Lightly opaque with a breathable mesh construction.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight and airy, designed for optimal ventilation.</p><br>
+                <p class="sub-text">Lightweight and airy, designed for optimal ventilation.</p> <p class="sub-text">
+120
+ 
+GSM - 
+100%POLY
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
                <span class="embellishment-label">Sublimation</span>
@@ -1438,11 +2536,42 @@
      
                   
                  
-                </div>
-            </div><br>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VentTek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;   <br><br></div>
+                </div><br>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_VentTek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub4/H_VentTek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+   
 
 
 
@@ -1455,44 +2584,83 @@
 
 
 
+    <!-- |---------------------------------------------------------| -->
 
 
-     <!-- Fabric 1: LATTEK -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="lt.jpg" alt="Fabric Image">
-                <div class="fabric-title">L A T T E K</div>
-            </div>
-            <div class="fabric-info">
+
+
+
+    <!-- Fabric 1: L A T T E K -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="lt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">L A T T E K</div>
+</div>
+<div class="fabric-info">
                 <ul>
-                    <li>Named LatTek because it stretches laterally </li>
+                    <li>⚪ Named LatTek because it stretches laterally </li>
 		
-                    <li>Lightweight breathable fabric w/ 2 way stretch </li>
-                    <li>Durable Fabric used for reversibles and shorts </li>
+                    <li>⚪ Lightweight breathable fabric w/ 2 way stretch </li>
+                    <li>⚪ Durable Fabric used for reversibles and shorts </li>
 
-                    <li> Best suited for sublimation and screen print embellishment</li>
+                    <li> ⚪ Best suited for sublimation and screen print embellishment</li>
 
-			<li> More economical option than Dez Tek or HydroTek</li>
+			<li> ⚪ More economical option than Dez Tek or HydroTek</li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS  <span style="display: inline-block; background: red; color: white; padding: 5px 10px; font-size: 14px; font-weight: bold; border-radius: 4px; margin-left: 10px;">
-                Sublimation-Ready Fabric
-            </span><br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="aa.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Colors1/SublimatedFabs.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+
+
+ <!-- iiiiiiiii -->
+
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
-                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/3 (Semi-opaque)</span>  </p>
+             <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;3/5 (Semi-opaque)</span>  </p>
                 <p class="sub-text">Lightweight and slightly opaque, providing breathability with minimal see-through effect.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Lightweight fabric with a balance of durability and flexibility for activewear.</p><br>
+                <p class="sub-text">Lightweight fabric with a balance of durability and flexibility for activewear.</p> <p class="sub-text">
+-
+ 
+GSM - 
+--
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
              <span class="embellishment-label">Sublimation</span>
@@ -1503,9 +2671,39 @@
                     <span class="embellishment-label">Woven Label</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Lattek.html', '_blank')">⭬ &nbsp;  View Product Samples &nbsp; <br><br></div>
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('https://encrpc.github.io/fabricSub4/H_Lattek.html', '_blank')"><span onclick="window.open('https://encrpc.github.io/fabricSub4/H_Lattek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+   
 
 
 
@@ -1514,62 +2712,92 @@
 
 
 
- 
+
+
+
+
+    <!-- |---------------------------------------------------------| -->
 
 
 
 
 
+    <!-- Fabric 1: F O A M T E K -->
 
-
-
-
-
-
-
-
-     <!-- Fabric 1: FOAMTEK
- -->
-        <div class="fabric-cell">
-            <div class="fabric-image">
-                <img src="fm.jpg" alt="Fabric Image">
-                
-                <div class="fabric-title">F O A M T E K
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="fm.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">F O A M T E K</div>
 </div>
-            </div>
-            <div class="fabric-info">
-                <ul>
-                    <li> Named FoamTek because of it's spongelike feel
+<div class="fabric-info">
+               <ul>
+                    <li> ⚪ Named FoamTek because of it's spongelike feel
 </li>
 		
-                    <li> Heavyweight jacket and hoodie "spacer" fabric
+                    <li> ⚪ Heavyweight jacket and hoodie "spacer" fabric
 </li>
-                    <li>3 Dimensional style fabric is thick and cushy
+                    <li> ⚪ Dimensional style fabric is thick and cushy
  </li>
 
-                    <li> Offers a unique look and smooth comfortable feel
+                    <li> ⚪ Offers a unique look and smooth comfortable feel
 </li>
 
-			<li> Best suited for embroidery and tackle twill embellishment
+			<li> ⚪ Best suited for embroidery and tackle twill embellishment
 </li>
 
 <br>
                 </ul>
+
             </div>
 
  <div class="details">
-                <p>FABRIC COLORS<br><br>  </p>
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
 
 </div>
-            <img src="foam.png" alt="Color Swatch">
-            <div class="colors-section">
-                <button class="show-colors-btn" onclick="window.open('https://encrpc.github.io/Color2/Foamtek.html', '_blank')">Explore All Colors</button><br>
+
+
+<img src="foam.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+<span onclick="window.open('https://encrpc.github.io/Color2/Foamtek.html', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span>&nbsp;
+
+
+ <!-- iiiiiiiii -->
+
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
             </div>
-            <div class="details">
+             <div class="details">
                 <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
                 <p class="sub-text">Maximum coverage, blocking nearly all light for a solid, non-transparent finish.</p><br>
                 <p> WEIGHT  </p>
-                <p class="sub-text">Heavyweight fabric with a cushioned, spongy feel, offering insulation and comfort.</p><br>
+                <p class="sub-text">Heavyweight fabric with a cushioned, spongy feel, offering insulation and comfort.</p> <p class="sub-text">
+-
+ 
+GSM - 
+--
+</p><br>
                 <p> EMBELLISHMENT TYPES </p>
                 <div class="embellishment-labels">
             
@@ -1581,23 +2809,797 @@
            <span class="embellishment-label"> Tackle Twill</span>
                 </div>
             </div>
-            <div class="show-product-samples" onclick="window.open(' ', '_blank')">⭬ &nbsp;  View Product Samples &nbsp;  <br><br></div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="window.open('q', '_blank')"><span onclick="window.open('https://encrpc.github.io/Sub-Fabric/H_Deztek.html', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
         </div>
 
+ <!-- end fab -->
 
+
+
+
+ <!-- |---------------------------------sssssssssssssssssssssss------------------------| -->
+
+
+
+
+    <!-- Fabric 1: VETLOOK -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">V E T L O O K</div>
+</div>
+<div class="fabric-info">
+                <ul>
+                    <li>⚪ Best suited for sublimation  embellishment</li>
+		
+                    <li>⚪ Soft, broken-in feel for all-day comfort</li>
+                    <li>⚪ Amazing for shooter shirts & training tops</li>
+                    <li></li>
+			<li> &nbsp;</li><br><br><br>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.<br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Mid-weight fabric that offers a blend of durability and breathability, perfect for everyday wear.</p>
+
+ <p class="sub-text">
+140
+ 
+GSM - 
+100%POLY
+</p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+  
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+ <!-- |---------------------------------------------------------| -->
+
+
+
+
+    <!-- Fabric 1: 1605 -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">1 6 0 5</div>
+</div>
+<div class="fabric-info">
+                <ul>
+                    <li>⚪ High-stretch performance fabric for superior flexibility and movement</li>
+		
+                    <li>⚪ Soft, smooth texture with excellent shape retention</li>
+                    <li>⚪ Ideal for activewear, leggings, and compression garments</li>
+                    <li> </li>
+			<li> &nbsp;</li><br>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;5/5 (Very opaque)</span>  </p>
+                <p class="sub-text">Dense, full-coverage fabric ensuring no transparency, even with stretch.<br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable, Heavyweight, supportive fabric providing structure, flexibility, and comfort.</p>
+
+ <p class="sub-text">
+260
+ 
+GSM - 
+78%POLY 22%SPAN </p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+ <!-- |---------------------------------------------------------| -->
+
+
+
+
+    <!-- Fabric 1: CATALINA -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">C A T A L I N A</div>
+</div>
+<div class="fabric-info">
+                <ul>
+                    <li>⚪ High-performance stretch fabric with superior flexibility</li>
+		
+                    <li>⚪ Smooth, soft surface with excellent shape retention</li>
+                    <li>⚪  Ideal for activewear, leggings, and compression garments</li>
+                    <li></li>
+			<li> &nbsp;</li><br>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Provides a breathable finish with a slight see-through effect in lighter shades.<br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p>
+
+ <p class="sub-text">
+280
+ 
+GSM - 
+88%POLY 12%SP SJ</p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+ <!-- |---------------------------------------------------------| -->
+
+
+
+
+    <!-- Fabric 1: TAFFATA -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">T A F F A T A</div>
+</div>
+<div class="fabric-info">
+                <ul>
+                    <li>⚪ Crisp, smooth, and lightweight fabric</li>
+		
+                    <li>⚪ 100% polyester construction for durability and sheen</li>
+                    <li>⚪ Quick-drying properties</li>
+                    <li>⚪ Ideal for lightweight outerwear</li>
+			<li> &nbsp;</li>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="openDialog()" 
+      style="display: inline-block; background: red; color: white;  padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+      onmouseout="this.style.background='red'; this.style.color='white'; this.style.borderColor='white'; this.style.transform='scale(1)';">
+   Sublimation-Ready Fabric
+</span>
+<br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;3/5 (Moderately opaque)</span>  </p>
+                <p class="sub-text">Ultra-lightweight fabric with a sleek, slightly stiff feel, perfect for layering or outerwear applications.<br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Comfortable, mid-weight fabric, perfect for athletic wear and lifestyle items..</p>
+
+ <p class="sub-text">
+80
+ 
+GSM - 
+100%POLY</p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+ <!-- |---------------------------------------------------------| -->
+
+
+
+
+    <!-- Fabric 1: WAFFLE -->
+
+<div class="fabric-cell">
+ <div class="fabric-image">
+                 <img src="dt.jpg" alt="Fabric Image" class="image-main">
+<img src="dt2.jpg" alt="Fabric Image" class="image-hover">
+     
+ <div class="fabric-title">W A F F L E</div>
+</div>
+<div class="fabric-info">
+                <ul>
+                    <li>⚪ Unique textured waffle knit for enhanced insulation and breathability</li>
+		
+                    <li>⚪ cotton-polyester blend with added spandex for stretch and comfort</li>
+                    <li>⚪ Excellent moisture-wicking properties for all-day wear</li>
+                    <li>  </li>
+			<li> &nbsp;</li><br>
+		
+                </ul>
+            </div>
+
+ <div class="details">
+                <p>FABRIC COLORS&nbsp;  &nbsp;
+<br><br> </p>
+
+</div>
+
+
+<img src="aa.png" alt="Color Swatch">
+
+
+
+
+ <!-- iiiiiiiii -->
+
+<br><br>
+
+
+ <!-- iiiiiiiii -->
+
+<span onclick="return false(' ', '_blank')" 
+      style="display: inline-block; background: #333f48; color: white; ; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1.02)';" 
+
+      onmouseout="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+    Explore All Stock Colors
+</span><br>
+           
+
+
+
+
+
+ <div class="colors-section">
+             
+            </div>
+           <div class="details">
+                <p> OPACITY RATING <span style="font-size:12px; color:#2F3C48;">&nbsp;4/5 (Slightly less opaque)</span>  </p>
+                <p class="sub-text">Offers moderate coverage with a breathable structure, allowing some airflow in lighter shades.<br></p><br>
+                <p> WEIGHT  </p>
+                <p class="sub-text">Lightweight to mid-weight fabric, providing a balance of warmth, comfort, and flexibility.</p>
+
+ <p class="sub-text">
+170
+ 
+GSM - 
+58% CTTN 38% POLY 4%SP</p>
+
+
+
+
+
+<br>
+                <p> EMBELLISHMENT TYPES </p>
+                <div class="embellishment-labels">
+                 <span class="embellishment-label">Sublimation</span>
+                    <span class="embellishment-label">Screen Print</span>
+                    <span class="embellishment-label">Embroidery</span>
+                    <span class="embellishment-label">Heat Seal</span>
+                  
+                    <span class="embellishment-label">Woven Label</span>
+                </div>
+            </div>
+     
+
+<!-- 0000000000000000000 -->
+
+      <div class="show-product-samples" onclick="return false('q', '_blank')"><span onclick="return false('q', '_blank')" 
+      style="display: inline-block; background: white; color: #333f48; border: 1px solid #333f48; padding: 8px 10px; font-size: 14px; font-weight:  ; border-radius: 8px; margin-left: 0px; cursor: pointer; transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;"
+      onmouseover="this.style.background='#333f48'; this.style.color='white'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';" 
+      onmouseout="this.style.background='white'; this.style.color='#333f48'; this.style.borderColor='#333f48'; this.style.transform='scale(1)';">
+     View Product Samples
+</span> </div>
+
+
+
+
+        </div>
+
+ <!-- end fab -->
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- end  -->
+
+
+
+
+
+ <!-- Dialog box for colors -->
+    <div class="dialog-box" id="colorsDialog">
+        <iframe src="https://encrpc.github.io/encrpc/sublimation.html"></iframe>
+        <button onclick="closeDialog()">Close</button>
     </div>
 
 
 
 
-
-<img src="ftr-01.jpg" alt="Full Width Image" style="width: 100%; height: auto;"> 
+    </div><img src="ftr-01.jpg" alt="Full Width Image" style="width: 100%; height: auto;"> 
 
 
 <script>
-    function scrollToGrid() {
-        document.querySelector(".grid-container").scrollIntoView({ behavior: "smooth" });
+    // Open the dialog box
+    function openDialog() {
+        document.getElementById("colorsDialog").style.display = "flex";
     }
+
+    // Close the dialog box
+    function closeDialog() {
+        document.getElementById("colorsDialog").style.display = "none";
+    }
+
+    // Close dialog if clicked outside of it
+    window.onclick = function(event) {
+        var dialog = document.getElementById("colorsDialog");
+        if (event.target === dialog) {
+            closeDialog();
+        }
+    };
 </script>
+
+
+
+
+
+
+https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap
+
+
+
+
 </body>
 </html>
